@@ -2,17 +2,18 @@ package ru.iooko.customer;
 
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.RestTemplate;
 import ru.iooko.clients.fraud.FraudCheckResponse;
 import ru.iooko.clients.fraud.FraudClient;
+import ru.iooko.clients.notification.NotificationClient;
+import ru.iooko.clients.notification.NotificationRequest;
 
 @Service
 @AllArgsConstructor
 public class CustomerService {
 
     private final CustomerRepository customerRepository;
-    private final RestTemplate restTemplate;
     private final FraudClient fraudClient;
+    private final NotificationClient notificationClient;
 
     public void registerCustomer(CustomerRegistrationRequest request) {
         Customer customer = Customer.builder()
@@ -23,7 +24,6 @@ public class CustomerService {
         // todo: check if email valid
         // todo: check if email not taken
         customerRepository.saveAndFlush(customer);
-        // todo: check if fraudster
 
         FraudCheckResponse fraudCheckResponse = fraudClient.isFraudster(customer.getId());
 
@@ -31,6 +31,13 @@ public class CustomerService {
             throw new IllegalStateException("fraudster");
         }
 
-        // todo: send notification
+        notificationClient.sendNotification(
+                new NotificationRequest(
+                        customer.getId(),
+                        customer.getEmail(),
+                        String.format("Hi %s, welcome to Iooko...",
+                                customer.getFirstName())
+                )
+        );
     }
 }
