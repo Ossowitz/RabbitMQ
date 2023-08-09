@@ -25,7 +25,8 @@ public class RabbitMQConfig {
 
     @Bean
     public SimpleRabbitListenerContainerFactory simpleRabbitListenerContainerFactory() {
-        var factory = new SimpleRabbitListenerContainerFactory();
+        SimpleRabbitListenerContainerFactory factory =
+                new SimpleRabbitListenerContainerFactory();
         factory.setConnectionFactory(connectionFactory);
         factory.setMessageConverter(jacksonConverter());
         return factory;
@@ -33,6 +34,8 @@ public class RabbitMQConfig {
 
     @Bean
     public MessageConverter jacksonConverter() {
-        return new Jackson2JsonMessageConverter();
+        MessageConverter jackson2JsonMessageConverter =
+                new Jackson2JsonMessageConverter();
+        return jackson2JsonMessageConverter;
     }
 }

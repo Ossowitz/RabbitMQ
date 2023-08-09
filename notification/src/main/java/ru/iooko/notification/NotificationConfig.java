@@ -1,6 +1,5 @@
 package ru.iooko.notification;
 
-import lombok.Getter;
 import org.springframework.amqp.core.Binding;
 import org.springframework.amqp.core.BindingBuilder;
 import org.springframework.amqp.core.Queue;
@@ -10,7 +9,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-@Getter
 public class NotificationConfig {
 
     @Value("${rabbitmq.exchanges.internal}")
@@ -23,7 +21,7 @@ public class NotificationConfig {
     private String internalNotificationRoutingKey;
 
     @Bean
-    public TopicExchange intervalTopicExchange() {
+    public TopicExchange internalTopicExchange() {
         return new TopicExchange(this.internalExchange);
     }
 
@@ -36,7 +34,20 @@ public class NotificationConfig {
     public Binding internalToNotificationBinding() {
         return BindingBuilder
                 .bind(notificationQueue())
-                .to(intervalTopicExchange())
+                .to(internalTopicExchange())
                 .with(this.internalNotificationRoutingKey);
+    }
+
+
+    public String getInternalExchange() {
+        return internalExchange;
+    }
+
+    public String getNotificationQueue() {
+        return notificationQueue;
+    }
+
+    public String getInternalNotificationRoutingKey() {
+        return internalNotificationRoutingKey;
     }
 }
