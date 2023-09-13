@@ -84,3 +84,12 @@ _За счёт того что очереди могут хранить в се�
 или заголовки)_.**
 
 ![Blank diagram (6).png](photo%2FBlank%20diagram%20%286%29.png)
+
+### Direct
+
+![Blank diagram (7).png](photo%2FBlank%20diagram%20%287%29.png)
+
+**Exchange публикует сообщения во все очереди, в которых Routing Key binding полностью совпадает с Routing Key 
+Messages.**
+
+![Blank diagram (8).png](photo%2FBlank%20diagram%20%288%29.png)
