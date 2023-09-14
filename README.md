@@ -99,9 +99,10 @@ Key Messages.**
 
 ![Blank diagram (9).png](photo%2FBlank%20diagram%20%289%29.png)
 
-**Exchange типа Topic, похожий на Direct, но поддерживающий в качестве параметров binding Wildcard * и #, где**
+**Exchange типа Topic, похож на Direct, но поддерживает в качестве параметров binding Wildcard * и #, где**
 
 **"*" - совпадение одного слова (слова разделяются точкой)**
 
 **# - любое количество слов**
 
+![Blank diagram (10).png](photo%2FBlank%20diagram%20%2810%29.png)
